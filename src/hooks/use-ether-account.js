@@ -17,20 +17,18 @@ const useEtherAccount = () => {
   }, []);
 
   useEffect(() => {
-    if (!window.ethereum) {
-      window.alert("Make sure metamask is installed");
-    }
-
     const getAccounts = async () => {
+      if (!window.ethereum) {
+        return window.alert("Make sure metamask is installed");
+      }
+
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
       setAccounts(accounts);
     };
 
-    if (window.ethereum) {
-      getAccounts();
-    }
+    getAccounts();
   }, []);
 
   return accounts;

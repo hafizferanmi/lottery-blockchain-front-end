@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ethers } from "ethers";
+import { formatBalance } from "../utils";
 
 const useAddressBalance = (address) => {
   const [balance, setBalance] = useState(0);
@@ -11,9 +11,8 @@ const useAddressBalance = (address) => {
           method: "eth_getBalance",
           params: [address, "latest"],
         });
-        setBalance(
-          parseFloat(ethers.utils.formatEther(addressBalance)).toFixed(4)
-        );
+        console.log(addressBalance, "balance hex");
+        setBalance(formatBalance(addressBalance));
       } catch (e) {
         console.log(e, "error sha");
         setBalance(0);
